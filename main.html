@@ -378,3 +378,79 @@
     .sort-bar { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
     .sort-bar button { padding: 8px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--cloud); font-size: 0.85rem; cursor: pointer; }
     .sort-bar button.active { background: var(--dream-soft); color: var(--dream); border-color: var(--dream); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .card { animation: fadeIn 0.4s ease-out; }
+    .mt-1 { margin-top: 8px; }
+    .mt-2 { margin-top: 16px; }
+    .mt-3 { margin-top: 24px; }
+    .mb-1 { margin-bottom: 8px; }
+    .mb-2 { margin-bottom: 16px; }
+    .text-center { text-align: center; }
+    .text-soft { color: var(--text-soft); }
+    .text-muted { color: var(--text-muted); }
+    .font-playfair { font-family: "Playfair Display", serif; }
+    .rounded { border-radius: var(--radius); }
+    .rounded-sm { border-radius: var(--radius-sm); }
+    .shadow { box-shadow: var(--shadow); }
+    .border { border: 1px solid var(--border); }
+    .p-2 { padding: 16px; }
+    .p-3 { padding: 24px; }
+    .flex { display: flex; }
+    .flex-wrap { flex-wrap: wrap; }
+    .gap-1 { gap: 8px; }
+    .gap-2 { gap: 16px; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .w-full { width: 100%; }
+    .max-w-sm { max-width: 360px; }
+    .max-w-md { max-width: 480px; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    @media (max-width: 900px) {
+      .review-panel { grid-template-columns: 1fr; }
+      .compare-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .wrap { padding: 0 16px; }
+      .hero { padding: 48px 0 64px; }
+      section { padding: 40px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+      <a href="#" class="logo">Dream<span>air</span></a>
+      <nav>
+        <a href="#compare">Compare</a>
+        <a href="#reviews">AI Reviews</a>
+        <a href="#guides">Guides</a>
+        <button class="btn btn-primary" id="cta-nav">Get started</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Compare hotels with <em>AI-driven</em> review scores</h1>
+        <p>Dreamair helps you choose the right stay. Lattice-anchored scores and comparison snapshots you can trust.</p>
+        <p class="text-muted" style="font-size: 0.9rem; max-width: 480px; margin: 0 auto 24px;">Part of the Hotelia ecosystem: on-chain properties, reviews, and guides for aggregators and travelers.</p>
+        <div class="btns">
+          <button class="btn btn-primary" id="cta-hero">Compare hotels</button>
+          <button class="btn btn-ghost" id="see-guides">View guides</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="compare">
+      <div class="wrap">
+        <h2 class="section-title">Hotel comparison</h2>
+        <p class="section-desc">Select two properties to see a side-by-side snapshot. Scores and traits are anchored for verification.</p>
+        <div class="filter-bar">
+          <input type="text" id="search-prop" placeholder="Search property or region..." />
+          <select id="region-filter">
+            <option value="">All regions</option>
+            <option value="region-eu-1">Europe 1</option>
+            <option value="region-us-1">US 1</option>
+            <option value="region-asia-1">Asia 1</option>
+          </select>
