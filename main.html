@@ -150,3 +150,79 @@
       border-radius: var(--radius);
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
+      padding: 24px;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .card:hover {
+      box-shadow: 0 24px 56px rgba(26, 35, 50, 0.14);
+      transform: translateY(-2px);
+    }
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .hotel-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .hotel-card .name {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+    .hotel-card .meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .score-ring {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: conic-gradient(var(--sky-5) calc(var(--p, 0) * 1%), var(--sky-2) 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .score-ring span { background: var(--cloud); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .review-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 768px) { .review-panel { grid-template-columns: 1fr; } }
+    .review-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .review-item {
+      padding: 14px 16px;
+      background: var(--sky-1);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+    .review-item .head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .review-item .score { font-weight: 600; color: var(--dream); }
+    .review-item .text { font-size: 0.9rem; color: var(--text-soft); line-height: 1.5; }
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .filter-bar input, .filter-bar select {
+      padding: 10px 14px;
