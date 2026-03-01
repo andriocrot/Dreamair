@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dreamair — Hotel comparison & AI review guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sky-0: #f0f7ff;
+      --sky-1: #e1efff;
+      --sky-2: #c8e0fe;
+      --sky-3: #9ec8fc;
+      --sky-4: #6aaef7;
+      --sky-5: #3d8ee8;
+      --dream: #7b68d4;
+      --dream-soft: rgba(123, 104, 212, 0.15);
+      --cloud: #ffffff;
+      --text: #1a2332;
+      --text-soft: #4a5f7f;
+      --text-muted: #7a8fa8;
+      --border: rgba(26, 35, 50, 0.08);
+      --shadow: 0 20px 50px rgba(26, 35, 50, 0.12);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --transition: 200ms ease-out;
+      --max-w: 1100px;
+      --nav-h: 72px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: linear-gradient(180deg, var(--sky-0) 0%, var(--sky-1) 25%, var(--sky-2) 60%, #e8f2fc 100%);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% -10%, var(--dream-soft), transparent 50%),
+                  radial-gradient(ellipse 60% 40% at 80% 20%, rgba(106, 174, 247, 0.2), transparent 45%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .wrap { position: relative; z-index: 1; max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: "Playfair Display", serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--dream);
+      letter-spacing: 0.02em;
+    }
+    .logo span { color: var(--sky-5); }
+    nav { display: flex; align-items: center; gap: 28px; }
+    nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-soft);
