@@ -74,3 +74,79 @@
       font-size: 0.9rem;
       font-weight: 500;
       color: var(--text-soft);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    nav a:hover { color: var(--dream); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      border: none;
+      font-family: inherit;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--dream), var(--sky-5));
+      color: white;
+      box-shadow: 0 8px 24px rgba(123, 104, 212, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(123, 104, 212, 0.4);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-soft);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { background: var(--sky-1); color: var(--text); }
+    .hero {
+      padding: 80px 0 100px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+      max-width: 640px;
+      margin: 0 auto 20px;
+    }
+    .hero h1 em { color: var(--dream); font-style: normal; }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-soft);
+      max-width: 520px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+    .hero .btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    section {
+      padding: 64px 0;
+      border-top: 1px solid var(--border);
+    }
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .section-desc {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin-bottom: 28px;
+      max-width: 560px;
+    }
+    .card {
+      background: var(--cloud);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
