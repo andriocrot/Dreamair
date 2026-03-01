@@ -530,3 +530,79 @@
           <div class="how-step">
             <div class="num">3</div>
             <h4>Verify</h4>
+            <p>Lattice hashes let you verify that a review (propertyId, reviewHash, scoreBand, block) is unchanged.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2 class="section-title">By the numbers</h2>
+        <div class="stats-row">
+          <div class="stat-item"><div class="val" id="stat-props">0</div><div class="lbl">Properties</div></div>
+          <div class="stat-item"><div class="val" id="stat-reviews">0</div><div class="lbl">Reviews</div></div>
+          <div class="stat-item"><div class="val" id="stat-regions">0</div><div class="lbl">Regions</div></div>
+        </div>
+        <p class="text-muted text-center mt-2" style="font-size: 0.85rem;">Data is sample-only. Connect to Hotelia contract for live properties and lattice verification.</p>
+      </div>
+    </section>
+
+    <section id="testimonials">
+      <div class="wrap">
+        <h2 class="section-title">What travelers say</h2>
+        <p class="section-desc">Trusted comparison and AI review scores help you book with confidence.</p>
+        <div class="testimonials">
+          <div class="testimonial">
+            <p class="quote">Dreamair made it easy to compare two resorts. The AI review scores matched our experience.</p>
+            <div class="author">Jane K.</div>
+            <div class="role">Frequent traveler</div>
+          </div>
+          <div class="testimonial">
+            <p class="quote">Lattice verification is a game-changer. I know the scores I see are tamper-proof.</p>
+            <div class="author">Marcus T.</div>
+            <div class="role">Business trips</div>
+          </div>
+          <div class="testimonial">
+            <p class="quote">The guides plus comparison tool saved me hours. Will use again.</p>
+            <div class="author">Sofia L.</div>
+            <div class="role">Family holidays</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap">
+        <h2 class="section-title">FAQ</h2>
+        <p class="section-desc">Common questions about Dreamair and the AI review checker.</p>
+        <ul class="faq-list">
+          <li>
+            <button type="button" class="faq-q">What is a score band?<span class="arrow">▼</span></button>
+            <div class="faq-a"><div class="faq-a-inner">Score bands are integers 0–10 assigned to each review. They are anchored on-chain so aggregators can compute averages and medians reliably.</div></div>
+          </li>
+          <li>
+            <button type="button" class="faq-q">What is a lattice hash?<span class="arrow">▼</span></button>
+            <div class="faq-a"><div class="faq-a-inner">A lattice hash is computed from the property ID, review hash, score band, and block number. It lets you verify that a review record has not been altered.</div></div>
+          </li>
+          <li>
+            <button type="button" class="faq-q">How do comparisons work?<span class="arrow">▼</span></button>
+            <div class="faq-a"><div class="faq-a-inner">You select two properties. Dreamair shows a side-by-side snapshot: scores, review counts, region, and traits. A diff hash can be stored for the pair.</div></div>
+          </li>
+          <li>
+            <button type="button" class="faq-q">Are guides verified?<span class="arrow">▼</span></button>
+            <div class="faq-a"><div class="faq-a-inner">Guide segments have content hashes that can be anchored on-chain. This ties curated content to the same verification layer as reviews.</div></div>
+          </li>
+          <li>
+            <button type="button" class="faq-q">What is the Hotelia contract?<span class="arrow">▼</span></button>
+            <div class="faq-a"><div class="faq-a-inner">Hotelia is an on-chain registry for properties, reviews, and comparison snapshots. Dreamair is the web interface that helps you explore and verify this data.</div></div>
+          </li>
+          <li>
+            <button type="button" class="faq-q">How often are scores updated?<span class="arrow">▼</span></button>
+            <div class="faq-a"><div class="faq-a-inner">Scores are updated when new reviews are anchored by the review oracle. Each review carries a score band (0–10) and a lattice hash for verification.</div></div>
+          </li>
+          <li>
+            <button type="button" class="faq-q">Can I export comparison data?<span class="arrow">▼</span></button>
+            <div class="faq-a"><div class="faq-a-inner">Comparison snapshots and diff hashes can be exported or queried from the contract. Use the HotHotelai app for full export and local persistence.</div></div>
+          </li>
+          <li>
