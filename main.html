@@ -606,3 +606,79 @@
             <div class="faq-a"><div class="faq-a-inner">Comparison snapshots and diff hashes can be exported or queried from the contract. Use the HotHotelai app for full export and local persistence.</div></div>
           </li>
           <li>
+            <button type="button" class="faq-q">What are traits?<span class="arrow">▼</span></button>
+            <div class="faq-a"><div class="faq-a-inner">Traits are key-value pairs (e.g. amenities, price tier, star rating) stored per property. They appear in comparison snapshots and can be used to filter or rank hotels.</div></div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="guides">
+      <div class="wrap">
+        <h2 class="section-title">Travel guides</h2>
+        <p class="section-desc">Curated guide segments by region. Content hashes are anchored on-chain for verification.</p>
+        <div class="guide-list" id="guide-list"></div>
+      </div>
+    </section>
+
+    <section style="background: linear-gradient(135deg, var(--dream-soft), rgba(61, 142, 232, 0.12)); padding: 48px 0;">
+      <div class="wrap text-center">
+        <h2 class="section-title font-playfair">Ready to compare?</h2>
+        <p class="section-desc mx-auto">Use the comparison tool above to select two hotels and see a side-by-side snapshot. All scores are AI-anchored and verifiable.</p>
+        <button class="btn btn-primary mt-2" onclick="document.getElementById('compare').scrollIntoView({ behavior: 'smooth' });">Go to comparison</button>
+      </div>
+    </section>
+
+    <section id="regions">
+      <div class="wrap">
+        <h2 class="section-title">Explore by region</h2>
+        <p class="section-desc">Each region has its own set of properties and guides. Filter comparisons by region above.</p>
+        <div class="compare-grid" style="margin-top: 20px;">
+          <div class="card hotel-card">
+            <div class="name">Europe 1</div>
+            <div class="meta">region-eu-1 · Multiple properties</div>
+            <p style="font-size: 0.9rem; color: var(--text-soft);">Culture, winter getaways, and city breaks with verified scores.</p>
+          </div>
+          <div class="card hotel-card">
+            <div class="name">US 1</div>
+            <div class="meta">region-us-1 · Multiple properties</div>
+            <p style="font-size: 0.9rem; color: var(--text-soft);">Coastal and urban stays. AI review checker integrated.</p>
+          </div>
+          <div class="card hotel-card">
+            <div class="name">Asia 1</div>
+            <div class="meta">region-asia-1 · Multiple properties</div>
+            <p style="font-size: 0.9rem; color: var(--text-soft);">Asia Pacific highlights with comparison snapshots.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <p>Dreamair — hotel comparison and guide driven by AI review checker. Part of the Hotelia ecosystem.</p>
+        <div class="links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#compare">Compare</a>
+          <a href="#reviews">AI Reviews</a>
+          <a href="#guides">Guides</a>
+          <a href="#faq">FAQ</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const HOTELS = [
+        { id: "hotel-alpha-01", name: "Azure Heights", region: "region-eu-1", score: 8, reviews: 124, traits: { amenities: "Pool, Spa", priceTier: "4" } },
+        { id: "hotel-beta-02", name: "Coastline View", region: "region-us-1", score: 7, reviews: 89, traits: { amenities: "Beach, Gym", priceTier: "3" } },
+        { id: "hotel-gamma-03", name: "Summit Lodge", region: "region-asia-1", score: 9, reviews: 56, traits: { amenities: "Ski, Restaurant", priceTier: "5" } },
+        { id: "hotel-delta-04", name: "Riverside Inn", region: "region-eu-1", score: 6, reviews: 201, traits: { amenities: "Parking, Bar", priceTier: "2" } },
+        { id: "hotel-epsilon-05", name: "Garden Plaza", region: "region-us-1", score: 8, reviews: 167, traits: { amenities: "Garden, Breakfast", priceTier: "4" } },
+        { id: "hotel-zeta-06", name: "Northern Lights", region: "region-eu-1", score: 9, reviews: 78, traits: { amenities: "Aurora, Sauna", priceTier: "5" } },
+        { id: "hotel-eta-07", name: "Sunset Bay", region: "region-us-1", score: 7, reviews: 142, traits: { amenities: "Beach, Pool", priceTier: "3" } },
+        { id: "hotel-theta-08", name: "Mountain Peak", region: "region-asia-1", score: 8, reviews: 95, traits: { amenities: "Hiking, Restaurant", priceTier: "4" } },
+      ];
+      const REVIEWS_BY_PROP = {
+        "hotel-alpha-01": [
