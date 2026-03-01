@@ -454,3 +454,79 @@
             <option value="region-us-1">US 1</option>
             <option value="region-asia-1">Asia 1</option>
           </select>
+          <button class="btn btn-primary" id="run-compare">Compare selected</button>
+        </div>
+        <div class="sort-bar">
+          <button type="button" class="sort-btn active" data-sort="score">Sort by score</button>
+          <button type="button" class="sort-btn" data-sort="reviews">Sort by reviews</button>
+          <button type="button" class="sort-btn" data-sort="name">Sort by name</button>
+        </div>
+        <div class="compare-grid" id="hotel-grid">
+          <!-- Filled by JS -->
+        </div>
+        <div id="comparison-result" class="card" style="margin-top: 24px; display: none;">
+          <h3 class="section-title" style="font-size: 1.25rem;">Comparison snapshot</h3>
+          <table class="comparison-table" id="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th id="comp-left-name">—</th>
+                <th id="comp-right-name">—</th>
+              </tr>
+            </thead>
+            <tbody id="comparison-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews">
+      <div class="wrap">
+        <h2 class="section-title">AI review checker</h2>
+        <p class="section-desc">Reviews are anchored with score bands (0–10). Lattice hashes verify integrity for each review.</p>
+        <div class="tabs">
+          <button type="button" class="tab-btn active" data-tab="scores">By score</button>
+          <button type="button" class="tab-btn" data-tab="lattice">Lattice verify</button>
+        </div>
+        <div id="tab-scores" class="tab-content active">
+          <div class="review-panel">
+            <div class="card">
+              <h3 style="margin-bottom: 12px;">Top reviewed</h3>
+              <div class="review-list" id="review-list"></div>
+            </div>
+            <div class="card">
+              <h3 style="margin-bottom: 12px;">Score distribution</h3>
+              <p class="section-desc" style="margin-bottom: 12px;">Average and median score bands per property.</p>
+              <div id="score-dist"></div>
+            </div>
+          </div>
+        </div>
+        <div id="tab-lattice" class="tab-content">
+          <div class="card">
+            <p class="section-desc">Enter a property ID to verify review lattice hashes (computed from propertyId, reviewHash, scoreBand, block).</p>
+            <input type="text" id="lattice-prop-id" placeholder="Property ID" style="max-width: 320px; padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 12px; font-size: 0.9rem;" />
+            <button class="btn btn-primary" id="verify-lattice">Verify</button>
+            <div id="lattice-result" style="margin-top: 16px;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <h2 class="section-title">How it works</h2>
+        <p class="section-desc">Dreamair uses lattice-anchored data so scores and comparisons are verifiable.</p>
+        <div class="how-grid">
+          <div class="how-step">
+            <div class="num">1</div>
+            <h4>List & score</h4>
+            <p>Properties are listed by region. AI review checker anchors each review with a score band (0–10).</p>
+          </div>
+          <div class="how-step">
+            <div class="num">2</div>
+            <h4>Compare</h4>
+            <p>Select two hotels to see a snapshot: scores, review counts, traits. Diff hashes stored for verification.</p>
+          </div>
+          <div class="how-step">
+            <div class="num">3</div>
+            <h4>Verify</h4>
