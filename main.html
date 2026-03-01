@@ -758,3 +758,79 @@
         }).join("");
         document.getElementById("comparison-result").style.display = "block";
         document.getElementById("comparison-result").scrollIntoView({ behavior: "smooth" });
+      }
+
+      document.getElementById("run-compare").addEventListener("click", function () {
+        const pair = getSelectedCompare();
+        if (!pair) { alert("Select exactly two hotels to compare."); return; }
+        showComparison(pair);
+      });
+
+      document.getElementById("region-filter").addEventListener("change", renderHotels);
+      document.getElementById("search-prop").addEventListener("input", renderHotels);
+      document.querySelectorAll(".sort-btn").forEach(function (b) {
+        b.addEventListener("click", function () {
+          sortBy = b.getAttribute("data-sort") || "score";
+          document.querySelectorAll(".sort-btn").forEach(function (x) { x.classList.remove("active"); });
+          b.classList.add("active");
+          applySort();
+        });
+      });
+
+      function renderReviewList() {
+        const list = document.getElementById("review-list");
+        const entries = [];
+        HOTELS.forEach(function (h) {
+          (REVIEWS_BY_PROP[h.id] || []).forEach(function (r) {
+            entries.push({ hotel: h.name, id: h.id, score: r.score, text: r.text });
+          });
+        });
+        entries.sort(function (a, b) { return b.score - a.score; });
+        list.innerHTML = entries.slice(0, 8).map(function (e) {
+          return (
+            '<div class="review-item">' +
+              '<div class="head"><span class="score">' + e.hotel + ' · ' + e.score + '/10</span> <span class="ai-badge">AI</span></div>' +
+              '<div class="text">' + e.text + '</div>' +
+            '</div>'
+          );
+        }).join("");
+      }
+
+      function renderScoreDist() {
+        const el = document.getElementById("score-dist");
+        const byHotel = HOTELS.map(function (h) {
+          const revs = REVIEWS_BY_PROP[h.id] || [];
+          const avg = revs.length ? (revs.reduce(function (s, r) { return s + r.score; }, 0) / revs.length).toFixed(1) : h.score;
+          return { name: h.name, avg: avg, count: revs.length || 0 };
+        });
+        el.innerHTML = byHotel.map(function (x) {
+          return '<div class="review-item"><div class="head"><strong>' + x.name + '</strong> <span class="score">avg ' + x.avg + '</span></div><div class="text">' + x.count + ' reviews</div></div>';
+        }).join("");
+      }
+
+      document.querySelectorAll(".tab-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".tab-btn").forEach(function (b) { b.classList.remove("active"); });
+          document.querySelectorAll(".tab-content").forEach(function (c) { c.classList.remove("active"); });
+          btn.classList.add("active");
+          var tab = document.getElementById("tab-" + btn.getAttribute("data-tab"));
+          if (tab) tab.classList.add("active");
+        });
+      });
+
+      function computeLatticeHash(propertyId, reviewHash, scoreBand, block) {
+        var str = "Hotelia.HTL_LATTICE_SALT.v2" + propertyId + reviewHash + scoreBand + block;
+        var h = 0;
+        for (var i = 0; i < str.length; i++) {
+          var c = str.charCodeAt(i);
+          h = ((h << 5) - h) + c;
+          h = h & h;
+        }
+        return "0x" + (h >>> 0).toString(16);
+      }
+
+      document.getElementById("verify-lattice").addEventListener("click", function () {
+        var id = (document.getElementById("lattice-prop-id").value || "").trim();
+        var out = document.getElementById("lattice-result");
+        if (!id) { out.innerHTML = "<p>Enter a property ID.</p>"; return; }
+        var revs = REVIEWS_BY_PROP[id] || [];
