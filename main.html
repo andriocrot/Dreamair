@@ -910,3 +910,77 @@
         for (var i = 0; i < HOTELS.length; i++) if (HOTELS[i].id === id) return HOTELS[i];
         return null;
       }
+      function getReviewsForHotel(id) {
+        return REVIEWS_BY_PROP[id] || [];
+      }
+      function getAverageScore(id) {
+        var revs = getReviewsForHotel(id);
+        if (revs.length === 0) return 0;
+        var sum = 0;
+        for (var i = 0; i < revs.length; i++) sum += revs[i].score;
+        return (sum / revs.length).toFixed(1);
+      }
+      function getGuideByRegion(region) {
+        return GUIDES.filter(function (g) { return g.region === region; });
+      }
+      function escapeHtml(s) {
+        if (!s) return "";
+        var div = document.createElement("div");
+        div.textContent = s;
+        return div.innerHTML;
+      }
+      function ensureTwoSelected() {
+        var c = document.querySelectorAll('input[name="compare"]:checked');
+        return c.length === 2;
+      }
+      function clearComparison() {
+        document.getElementById("comparison-result").style.display = "none";
+      }
+      function selectFirstHotel() {
+        var first = document.querySelector('.hotel-card input[name="compare"]');
+        if (first) first.checked = true;
+      }
+      function selectSecondHotel() {
+        var all = document.querySelectorAll('.hotel-card input[name="compare"]');
+        if (all.length >= 2) all[1].checked = true;
+      }
+      function getSelectedHotelIds() {
+        var out = [];
+        document.querySelectorAll('input[name="compare"]:checked').forEach(function (cb) { out.push(cb.value); });
+        return out;
+      }
+      function setRegionFilter(region) {
+        var sel = document.getElementById("region-filter");
+        if (sel) sel.value = region;
+        renderHotels();
+      }
+      renderHotels();
+      renderReviewList();
+      renderScoreDist();
+      renderGuides();
+      updateStats();
+      if (document.querySelector(".sort-btn")) {
+        document.querySelector(".sort-btn.active").click();
+      }
+      window.Dreamair = {
+        getHotelById: getHotelById,
+        getReviewsForHotel: getReviewsForHotel,
+        getAverageScore: getAverageScore,
+        getGuideByRegion: getGuideByRegion,
+        getSelectedHotelIds: getSelectedHotelIds,
+        setRegionFilter: setRegionFilter,
+        renderHotels: renderHotels,
+        showComparison: showComparison,
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        updateStats();
+        var hash = window.location.hash;
+        if (hash) {
+          var el = document.querySelector(hash);
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
