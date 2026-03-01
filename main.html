@@ -834,3 +834,79 @@
         var out = document.getElementById("lattice-result");
         if (!id) { out.innerHTML = "<p>Enter a property ID.</p>"; return; }
         var revs = REVIEWS_BY_PROP[id] || [];
+        if (revs.length === 0) { out.innerHTML = "<p>No reviews for this property.</p>"; return; }
+        var block = 17000000;
+        var html = "<p><strong>Lattice verification for " + id + "</strong></p><ul style='margin-top:8px;'>";
+        revs.forEach(function (r, i) {
+          var reviewHash = "rev_" + id + "_" + i;
+          var hash = computeLatticeHash(id, reviewHash, r.score, block + i);
+          html += "<li>Review " + (i + 1) + ": score " + r.score + " → " + hash + "</li>";
+        });
+        html += "</ul>";
+        out.innerHTML = html;
+      });
+
+      function renderGuides() {
+        var list = document.getElementById("guide-list");
+        list.innerHTML = GUIDES.map(function (g) {
+          return (
+            '<div class="guide-item">' +
+              '<span class="badge">' + g.region + '</span>' +
+              '<h3>' + g.title + '</h3>' +
+              '<p>' + g.summary + '</p>' +
+            '</div>'
+          );
+        }).join("");
+      }
+
+      document.getElementById("cta-hero").addEventListener("click", function () {
+        document.getElementById("compare").scrollIntoView({ behavior: "smooth" });
+      });
+      document.getElementById("cta-nav").addEventListener("click", function () {
+        document.getElementById("compare").scrollIntoView({ behavior: "smooth" });
+      });
+      document.getElementById("see-guides").addEventListener("click", function () {
+        document.getElementById("guides").scrollIntoView({ behavior: "smooth" });
+      });
+
+      function updateStats() {
+        var props = HOTELS.length;
+        var reviews = 0;
+        HOTELS.forEach(function (h) { reviews += (REVIEWS_BY_PROP[h.id] || []).length; });
+        var regions = new Set(HOTELS.map(function (h) { return h.region; })).size;
+        var elP = document.getElementById("stat-props"); if (elP) elP.textContent = props;
+        var elR = document.getElementById("stat-reviews"); if (elR) elR.textContent = reviews;
+        var elG = document.getElementById("stat-regions"); if (elG) elG.textContent = regions;
+      }
+
+      document.querySelectorAll(".faq-q").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var li = btn.closest("li");
+          var isOpen = li.classList.contains("open");
+          document.querySelectorAll(".faq-list li").forEach(function (item) {
+            item.classList.remove("open");
+            item.querySelector(".faq-a").style.maxHeight = null;
+          });
+          if (!isOpen) {
+            li.classList.add("open");
+            var inner = li.querySelector(".faq-a-inner");
+            li.querySelector(".faq-a").style.maxHeight = (inner ? inner.offsetHeight : 120) + "px";
+          }
+        });
+      });
+
+      var sortBy = "score";
+      function applySort() {
+        HOTELS.sort(function (a, b) {
+          if (sortBy === "score") return b.score - a.score;
+          if (sortBy === "reviews") return b.reviews - a.reviews;
+          if (sortBy === "name") return (a.name || "").localeCompare(b.name || "");
+          return 0;
+        });
+        renderHotels();
+      }
+
+      function getHotelById(id) {
+        for (var i = 0; i < HOTELS.length; i++) if (HOTELS[i].id === id) return HOTELS[i];
+        return null;
+      }
