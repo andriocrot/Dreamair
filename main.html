@@ -682,3 +682,79 @@
       ];
       const REVIEWS_BY_PROP = {
         "hotel-alpha-01": [
+          { score: 8, text: "Stunning views and very clean. AI summary: highly recommended." },
+          { score: 9, text: "Breakfast was excellent. Will return." },
+          { score: 7, text: "Good value, a bit far from center." },
+        ],
+        "hotel-beta-02": [
+          { score: 7, text: "Beach access is a plus. Friendly staff." },
+          { score: 8, text: "Room was spacious. AI summary: positive." },
+        ],
+        "hotel-gamma-03": [
+          { score: 9, text: "Best stay in the region. Lattice-verified." },
+          { score: 10, text: "Perfect for families. Excellent service." },
+        ],
+        "hotel-zeta-06": [
+          { score: 9, text: "Aurora view was incredible. Highly recommend." },
+        ],
+        "hotel-eta-07": [
+          { score: 7, text: "Great beach. Rooms could be updated." },
+        ],
+        "hotel-theta-08": [
+          { score: 8, text: "Perfect for hikers. Breakfast included." },
+        ],
+      };
+      const GUIDES = [
+        { id: "guide-eu-1", title: "Europe highlights", region: "region-eu-1", summary: "Top picks for culture and comfort. Lattice-anchored segments." },
+        { id: "guide-us-1", title: "US coastal stays", region: "region-us-1", summary: "Beach and city options with verified review scores." },
+        { id: "guide-asia-1", title: "Asia Pacific guide", region: "region-asia-1", summary: "Curated list with AI review checker integration." },
+        { id: "guide-eu-2", title: "Winter getaways", region: "region-eu-1", summary: "Ski and spa destinations with comparison snapshots." },
+        { id: "guide-us-2", title: "City breaks", region: "region-us-1", summary: "Urban hotels with AI review scores and trait filters." },
+      ];
+
+      function renderHotels() {
+        const grid = document.getElementById("hotel-grid");
+        const region = document.getElementById("region-filter").value;
+        const search = (document.getElementById("search-prop").value || "").toLowerCase();
+        let list = HOTELS.filter(function (h) {
+          if (region && h.region !== region) return false;
+          if (search && !h.name.toLowerCase().includes(search) && !h.id.toLowerCase().includes(search) && !h.region.toLowerCase().includes(search)) return false;
+          return true;
+        });
+        grid.innerHTML = list.map(function (h) {
+          const p = Math.round((h.score / 10) * 100);
+          return (
+            '<div class="card hotel-card" data-id="' + h.id + '" data-name="' + h.name + '" data-region="' + h.region + '" data-score="' + h.score + '" data-reviews="' + h.reviews + '">' +
+              '<div class="name">' + h.name + '</div>' +
+              '<div class="meta">' + h.region + ' · ' + h.reviews + ' reviews</div>' +
+              '<div class="score-ring" style="--p:' + p + '"><span>' + h.score + '</span></div>' +
+              '<label><input type="checkbox" name="compare" value="' + h.id + '" /> Compare</label>' +
+            '</div>'
+          );
+        }).join("");
+      }
+
+      function getSelectedCompare() {
+        const checked = document.querySelectorAll('input[name="compare"]:checked');
+        if (checked.length !== 2) return null;
+        const ids = [checked[0].value, checked[1].value];
+        return HOTELS.filter(function (h) { return ids.includes(h.id); });
+      }
+
+      function showComparison(pair) {
+        const left = pair[0], right = pair[1];
+        document.getElementById("comp-left-name").textContent = left.name;
+        document.getElementById("comp-right-name").textContent = right.name;
+        const tbody = document.getElementById("comparison-tbody");
+        const rows = [
+          ["Score band", left.score, right.score],
+          ["Review count", left.reviews, right.reviews],
+          ["Region", left.region, right.region],
+          ["Price tier", (left.traits && left.traits.priceTier) || "—", (right.traits && right.traits.priceTier) || "—"],
+          ["Amenities", (left.traits && left.traits.amenities) || "—", (right.traits && right.traits.amenities) || "—"],
+        ];
+        tbody.innerHTML = rows.map(function (r) {
+          return "<tr><td>" + r[0] + "</td><td>" + r[1] + "</td><td>" + r[2] + "</td></tr>";
+        }).join("");
+        document.getElementById("comparison-result").style.display = "block";
+        document.getElementById("comparison-result").scrollIntoView({ behavior: "smooth" });
